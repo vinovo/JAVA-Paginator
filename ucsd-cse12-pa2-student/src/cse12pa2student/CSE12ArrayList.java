@@ -67,11 +67,25 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	@Override
 	public void removeFirst(T e) {
 		/** TODO **/
+		for (int i = 0; i < contents.length; i++){
+			if (getAt(i).equals(e)){
+				for (int j = i; j < contents.length - 1; j++){
+					contents[j] = contents[j+1];
+				}
+				expandCapacity(this.size - 1);
+				this.size--;
+				return;
+			}
+		}
 	}
 
 	@Override
 	public int findFirst(T e) {
 		/** TODO **/
+		for (int i = 0; i < contents.length; i++){
+			if (getAt(i).equals(e))
+				return i;
+		}
 		return -1;
 	}
 

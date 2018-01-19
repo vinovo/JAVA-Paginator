@@ -49,5 +49,39 @@ public class TestLists {
 		l.append("a");
 		assertEquals("a", l.getAt(0));
 	}
+	
+	@Test
+	public void findFirst() {
+		CSE12List<String> l = makeList();
+		for (int i = 0; i < 26; i++){
+			l.append((char)('a'+i)+"");
+		}
+		assertEquals(25, l.findFirst("z"));
+		assertEquals(2, l.findFirst("c"));
+	}
+	
+	@Test
+	public void removeFirst() {
+		CSE12List<String> l = makeList();
+		for (int i = 0; i < 26; i++){
+			l.append((char)('a'+i)+"");
+		}
+		l.removeFirst("a");
+		assertEquals(25, l.size());
+		l.removeFirst("c");
+		assertEquals(24, l.size());
+		assertEquals("b", l.getAt(0));
+		assertEquals("d", l.getAt(1));
+	}
+	
+	@Test
+	public void testSize() {
+		CSE12List<String> l = makeList();
+		for (int i = 0; i < 26; i++){
+			l.append((char)('a'+i)+"");
+		}
+		assertEquals(26, l.size());
+		
+	}
 }
 
