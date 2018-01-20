@@ -62,19 +62,7 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	@Override
 	public void removeFirst(E e) {
 		/** TODO **/
-		Node<E> curNode = head;
-		if (getAt(0).equals(e)) {
-			head.succ.prev = null;
-			head = head.succ;
-			size--;
-			return;
-		}
-		if (getAt(this.size-1).equals(e)){
-			tail.prev.succ = null;
-			tail = tail.prev;
-			size--;
-			return;
-		}
+		Node<E> curNode = head.succ;
 		for (int i = 0; i < this.size; i++) {
 			if (getAt(i).equals(e)) {
 				curNode.prev.succ = curNode.succ;

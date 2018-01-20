@@ -68,10 +68,14 @@ public class TestLists {
 		}
 		l.removeFirst("a");
 		assertEquals(25, l.size());
-		l.removeFirst("c");
+		l.removeFirst("d");
 		assertEquals(24, l.size());
+		l.removeFirst("z");
+		assertEquals(23, l.size());
 		assertEquals("b", l.getAt(0));
-		assertEquals("d", l.getAt(1));
+		assertEquals("c", l.getAt(1));
+		assertEquals("e", l.getAt(2));
+		assertEquals("y", l.getAt(22));
 	}
 	
 	@Test
