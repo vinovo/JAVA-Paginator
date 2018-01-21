@@ -16,8 +16,8 @@ public interface CSE12List<E> {
 	void prepend(E e);
 
 	/*
-	 * Returns the element at the given index, or throws IndexOutOfBoundsException
-	 * if index is not in range
+	 * Returns the element at the given index, or throws
+	 * IndexOutOfBoundsException if index is not in range
 	 */
 	E getAt(int index);
 
@@ -32,8 +32,8 @@ public interface CSE12List<E> {
 	int size();
 
 	/*
-	 * Returns a paginator that produces pages iterating over pePage elements at a
-	 * time
+	 * Returns a paginator that produces pages iterating over pePage elements at
+	 * a time
 	 */
 	Paginator<E> paginate(int perPage);
 

@@ -9,13 +9,10 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-
-
 @RunWith(Parameterized.class)
 public class TestLists {
-	
-	public static Collection<Object[]> LISTNUMS =
-			Arrays.asList(new Object[][] { {"Doubly-Linked"}, {"Array"} });
+
+	public static Collection<Object[]> LISTNUMS = Arrays.asList(new Object[][] { { "Doubly-Linked" }, { "Array" } });
 	private String listType;
 
 	public TestLists(String listType) {
@@ -27,44 +24,46 @@ public class TestLists {
 	public static Collection<Object[]> bags() {
 		return LISTNUMS;
 	}
-	
+
 	private <E> CSE12List<E> makeList() {
-		switch(this.listType) {
-			case "Doubly-Linked": return new CSE12DLList<E>();
-			case "Array": return new CSE12ArrayList<E>();
+		switch (this.listType) {
+		case "Doubly-Linked":
+			return new CSE12DLList<E>();
+		case "Array":
+			return new CSE12ArrayList<E>();
 		}
 		return null;
 	}
-	
+
 	/* Example Tests */
 	@Test
 	public void testEmpty() {
 		CSE12List<String> l = makeList();
 		assertEquals(0, l.size());
 	}
-	
+
 	@Test
 	public void addAndGet() {
 		CSE12List<String> l = makeList();
 		l.append("a");
 		assertEquals("a", l.getAt(0));
 	}
-	
+
 	@Test
 	public void findFirst() {
 		CSE12List<String> l = makeList();
-		for (int i = 0; i < 26; i++){
-			l.append((char)('a'+i)+"");
+		for (int i = 0; i < 26; i++) {
+			l.append((char) ('a' + i) + "");
 		}
 		assertEquals(25, l.findFirst("z"));
 		assertEquals(2, l.findFirst("c"));
 	}
-	
+
 	@Test
 	public void removeFirst() {
 		CSE12List<String> l = makeList();
-		for (int i = 0; i < 26; i++){
-			l.append((char)('a'+i)+"");
+		for (int i = 0; i < 26; i++) {
+			l.append((char) ('a' + i) + "");
 		}
 		l.removeFirst("a");
 		assertEquals(25, l.size());
@@ -77,15 +76,55 @@ public class TestLists {
 		assertEquals("e", l.getAt(2));
 		assertEquals("y", l.getAt(22));
 	}
-	
+
 	@Test
 	public void testSize() {
 		CSE12List<String> l = makeList();
-		for (int i = 0; i < 26; i++){
-			l.append((char)('a'+i)+"");
+		for (int i = 0; i < 26; i++) {
+			l.append((char) ('a' + i) + "");
 		}
 		assertEquals(26, l.size());
-		
+
+	}
+
+	@Test
+	public void testALPaginator() {
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+
+		Paginator<String> p = lst.paginate(2);
+
+		Page<String> p1 = p.next();
+		assertEquals("a", p1.next());
+		assertEquals("b", p1.next());
+
+		Page<String> p2 = p.next();
+		assertEquals("c", p2.next());
+		assertEquals("d", p2.next());
+
+		Page<String> p3 = p.next();
+		assertEquals("e", p3.next());
+		assertFalse(p3.hasNext());
+
+		assertFalse(p.hasNext());
+		assertTrue(p.hasPrevious());
+
+		Page<String> p3Again = p.previous();
+		Page<String> p2Again = p.previous();
+
+		assertFalse(p2.hasNext());
+		assertFalse(p3.hasNext());
+
+		assertEquals("e", p3Again.next());
+		assertFalse(p3Again.hasNext());
+
+		assertEquals("c", p2Again.next());
+		assertEquals("d", p2Again.next());
+
+		assertTrue(p.hasNext());
 	}
 }
-

@@ -1,26 +1,26 @@
 package cse12pa2student;
 
 public class CSE12ArrayList<T> implements CSE12List<T> {
-	
+
 	private T[] contents;
 	private int size;
-	
+
 	@SuppressWarnings(value = { "unchecked" })
 	public CSE12ArrayList() {
-		this.contents = (T[])(new Object[10]);
+		this.contents = (T[]) (new Object[10]);
 	}
-	
+
 	@SuppressWarnings(value = { "unchecked" })
 	private void expandCapacity(int targetSize) {
-		if(this.contents.length < targetSize) {
-			T[] newContents = (T[])(new Object[this.contents.length * 2]);
-			for(int i = 0; i < this.contents.length; i += 1) {
+		if (this.contents.length < targetSize) {
+			T[] newContents = (T[]) (new Object[this.contents.length * 2]);
+			for (int i = 0; i < this.contents.length; i += 1) {
 				newContents[i] = this.contents[i];
 			}
 			this.contents = newContents;
 		}
 	}
-	
+
 	@Override
 	public void append(T e) {
 		expandCapacity(this.size + 1);
@@ -31,7 +31,7 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	@Override
 	public void prepend(T e) {
 		expandCapacity(this.size + 1);
-		for(int i = this.size - 1; i >= 0; i -= 1) {
+		for (int i = this.size - 1; i >= 0; i -= 1) {
 			this.contents[i + 1] = this.contents[i];
 		}
 		this.contents[0] = e;
@@ -41,7 +41,7 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	@Override
 	@SuppressWarnings(value = { "unchecked" })
 	public void empty() {
-		this.contents = (T[])(new Object[10]);
+		this.contents = (T[]) (new Object[10]);
 		this.size = 0;
 	}
 
@@ -52,7 +52,7 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 
 	@Override
 	public T getAt(int index) {
-		if(index >= this.size || index < 0) {
+		if (index >= this.size || index < 0) {
 			throw new IndexOutOfBoundsException("Index " + index + " out of bounds.");
 		}
 		return this.contents[index];
@@ -61,16 +61,26 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	@Override
 	public Paginator<T> paginate(int perPage) {
 		/** TODO **/
-		return null;
+		ALPaginator<T> p = new ALPaginator<T>(perPage, this.size);
+		for (int i = 0; i < p.pgNums; i++) {
+			CSE12ArrayList<T> ls = new CSE12ArrayList<T>();
+			for (int j = i * perPage; j < (i + 1) * perPage; j++) {
+				if (j < this.size)
+					ls.append(this.getAt(j));
+			}
+			p.list[i].list = ls;
+		}
+
+		return p;
 	}
-	
+
 	@Override
 	public void removeFirst(T e) {
 		/** TODO **/
-		for (int i = 0; i < contents.length; i++){
-			if (getAt(i).equals(e)){
-				for (int j = i; j < contents.length - 1; j++){
-					contents[j] = contents[j+1];
+		for (int i = 0; i < contents.length; i++) {
+			if (getAt(i).equals(e)) {
+				for (int j = i; j < contents.length - 1; j++) {
+					contents[j] = contents[j + 1];
 				}
 				expandCapacity(this.size - 1);
 				this.size--;
@@ -82,7 +92,7 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	@Override
 	public int findFirst(T e) {
 		/** TODO **/
-		for (int i = 0; i < contents.length; i++){
+		for (int i = 0; i < contents.length; i++) {
 			if (getAt(i).equals(e))
 				return i;
 		}

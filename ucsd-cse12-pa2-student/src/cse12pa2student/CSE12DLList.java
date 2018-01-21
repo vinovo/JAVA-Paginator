@@ -56,7 +56,17 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	@Override
 	public Paginator<E> paginate(int perPage) {
 		/** TODO **/
-		return null;
+		DLPaginator<E> p = new DLPaginator<E>(perPage, this.size);
+		for (int i = 0; i < p.pgNums; i++) {
+			CSE12DLList<E> ls = new CSE12DLList<E>();
+			for (int j = i * perPage; j < (i + 1) * perPage; j++) {
+				if (j < this.size)
+					ls.append(this.getAt(j));
+			}
+			p.list[i].list = ls;
+		}
+
+		return p;
 	}
 
 	@Override

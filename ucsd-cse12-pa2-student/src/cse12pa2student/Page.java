@@ -4,4 +4,5 @@ package cse12pa2student;
 
 import java.util.Iterator;
 
-public interface Page<E> extends Iterator<E> {}
+public interface Page<E> extends Iterator<E> {
+}
