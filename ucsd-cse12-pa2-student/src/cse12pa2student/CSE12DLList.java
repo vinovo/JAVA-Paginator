@@ -56,7 +56,9 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	@Override
 	/**
 	 * Create and return a paginator
-	 * @param perPage the numbers of elements each page contains
+	 * 
+	 * @param perPage
+	 *            the numbers of elements each page contains
 	 * @return Paginator<T> the created paginator
 	 */
 	public Paginator<E> paginate(int perPage) {
@@ -78,7 +80,9 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	@Override
 	/**
 	 * Removes the first element that is .equals(e)
-	 * @param e the element to be removed
+	 * 
+	 * @param e
+	 *            the element to be removed
 	 */
 	public void removeFirst(E e) {
 		/** TODO **/
@@ -98,7 +102,9 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	@Override
 	/**
 	 * Returns the first index where an element of the list is .equals(e)
-	 * @param e the elements to be found
+	 * 
+	 * @param e
+	 *            the elements to be found
 	 * @return the index of the found elements
 	 */
 	public int findFirst(E e) {
@@ -109,6 +115,5 @@ public class CSE12DLList<E> implements CSE12List<E> {
 		}
 		return -1;
 	}
-	
 
 }

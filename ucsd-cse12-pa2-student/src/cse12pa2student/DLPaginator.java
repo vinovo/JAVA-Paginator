@@ -8,8 +8,11 @@ public class DLPaginator<E> extends Paginator<E> {
 
 	/**
 	 * the constructor of DLPaginator class
-	 * @param perPage the numbers of elements per page
-	 * @param size the total numbers of elements
+	 * 
+	 * @param perPage
+	 *            the numbers of elements per page
+	 * @param size
+	 *            the total numbers of elements
 	 */
 	public DLPaginator(int perPage, int size) {
 		cursor = -1;
@@ -25,6 +28,7 @@ public class DLPaginator<E> extends Paginator<E> {
 
 	/**
 	 * Return true if the iterator can traverse backward
+	 * 
 	 * @return true if the iterator can traverse backward, false otherwise
 	 */
 	public boolean hasPrevious() {
@@ -37,6 +41,7 @@ public class DLPaginator<E> extends Paginator<E> {
 
 	/**
 	 * return the previous page
+	 * 
 	 * @return the previous page
 	 */
 	public Page<E> previous() {
@@ -53,6 +58,7 @@ public class DLPaginator<E> extends Paginator<E> {
 
 	/**
 	 * return the next page
+	 * 
 	 * @return the next page
 	 */
 	public Page<E> next() {
@@ -69,6 +75,7 @@ public class DLPaginator<E> extends Paginator<E> {
 
 	/**
 	 * return the index of the next page
+	 * 
 	 * @return the index of the next page
 	 */
 	public int nextIndex() {
@@ -79,6 +86,7 @@ public class DLPaginator<E> extends Paginator<E> {
 
 	/**
 	 * return the index of the previous page
+	 * 
 	 * @return the index of the previous page
 	 */
 	public int previousIndex() {
@@ -89,6 +97,7 @@ public class DLPaginator<E> extends Paginator<E> {
 
 	/**
 	 * return true if the iterator can traverse forward
+	 * 
 	 * @return true if the iterator can traverse forward, false otherwise
 	 */
 	public boolean hasNext() {

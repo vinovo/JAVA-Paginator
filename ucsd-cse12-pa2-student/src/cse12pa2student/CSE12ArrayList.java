@@ -61,7 +61,9 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	@Override
 	/**
 	 * Create and return a paginator
-	 * @param perPage the numbers of elements each page contains
+	 * 
+	 * @param perPage
+	 *            the numbers of elements each page contains
 	 * @return Paginator<T> the created paginator
 	 */
 	public Paginator<T> paginate(int perPage) {
@@ -82,7 +84,9 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 
 	/**
 	 * Removes the first element that is .equals(e)
-	 * @param e the element to be removed
+	 * 
+	 * @param e
+	 *            the element to be removed
 	 */
 	@Override
 	public void removeFirst(T e) {
@@ -101,7 +105,9 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 
 	/**
 	 * Returns the first index where an element of the list is .equals(e)
-	 * @param e the elements to be found
+	 * 
+	 * @param e
+	 *            the elements to be found
 	 * @return the index of the found elements
 	 */
 	@Override
