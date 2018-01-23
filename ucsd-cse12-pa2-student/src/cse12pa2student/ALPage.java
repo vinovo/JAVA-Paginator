@@ -6,10 +6,17 @@ public class ALPage<E> implements Page<E> {
 	E[] list;
 	int cursor;
 
+	/**
+	 * the constructor of ALPage
+	 */
 	public ALPage() {
 		cursor = -1;
 	}
 
+	/**
+	 * return the next element of current page
+	 * @return the next element of current page
+	 */
 	public E next() {
 		if (cursor < -1 || cursor + 1 >= list.length)
 			throw new IndexOutOfBoundsException("cursor out of bounds");
@@ -17,6 +24,10 @@ public class ALPage<E> implements Page<E> {
 		return list[cursor];
 	}
 
+	/**
+	 * @return true if there's still element untouched in the current page,
+	 *         false otherwise
+	 */
 	public boolean hasNext() {
 		if (cursor < -1 || cursor > list.length)
 			throw new IndexOutOfBoundsException("cursor out of bounds");

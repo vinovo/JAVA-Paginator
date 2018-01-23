@@ -7,7 +7,7 @@ public class DLPaginator<E> extends Paginator<E> {
 	int cursor, pgNums;
 
 	/**
-	 * the constructor of ALPaginator class
+	 * the constructor of DLPaginator class
 	 * @param perPage the numbers of elements per page
 	 * @param size the total numbers of elements
 	 */
