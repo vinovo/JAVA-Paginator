@@ -63,12 +63,13 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 		/** TODO **/
 		ALPaginator<T> p = new ALPaginator<T>(perPage, this.size);
 		for (int i = 0; i < p.pgNums; i++) {
-			CSE12ArrayList<T> ls = new CSE12ArrayList<T>();
-			for (int j = i * perPage; j < (i + 1) * perPage; j++) {
+			T[] arr = (T[]) new Object[perPage];
+			int rounds = 0;
+			for (int j = i * perPage; j < (i + 1) * perPage; j++, rounds++) {
 				if (j < this.size)
-					ls.append(this.getAt(j));
+					arr[rounds] = this.getAt(j);
 			}
-			p.list[i].list = ls;
+			p.list[i].list = arr;
 		}
 
 		return p;
@@ -77,7 +78,7 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	@Override
 	public void removeFirst(T e) {
 		/** TODO **/
-		for (int i = 0; i < contents.length; i++) {
+		for (int i = 0; i < this.size; i++) {
 			if (getAt(i).equals(e)) {
 				for (int j = i; j < contents.length - 1; j++) {
 					contents[j] = contents[j + 1];
@@ -92,7 +93,7 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	@Override
 	public int findFirst(T e) {
 		/** TODO **/
-		for (int i = 0; i < contents.length; i++) {
+		for (int i = 0; i < this.size; i++) {
 			if (getAt(i).equals(e))
 				return i;
 		}

@@ -21,7 +21,7 @@ public class DLPaginator<E> extends Paginator<E> {
 	public boolean hasPrevious() {
 		if (cursor < -1 || cursor >= pgNums)
 			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		if (cursor >= 1 && list[cursor - 1] != null)
+		if (cursor >= 0 && list[cursor] != null)
 			return true;
 		return false;
 	}

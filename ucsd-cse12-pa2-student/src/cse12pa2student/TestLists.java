@@ -127,4 +127,121 @@ public class TestLists {
 
 		assertTrue(p.hasNext());
 	}
+	
+	@Test
+	public void size1HasPrevious(){
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		Paginator<String> p = lst.paginate(1);
+		
+		assertFalse(p.hasPrevious());
+		Page<String> p1 = p.next();
+		assertTrue(p.hasPrevious());
+		assertTrue(p1.hasNext());
+		p1.next();
+		assertFalse(p1.hasNext());
+	}
+	
+	@Test
+	public void noexns(){
+		CSE12List<String> lst = makeList();
+		Paginator<String> p = lst.paginate(1);
+		
+		assertFalse(p.hasNext());
+		assertFalse(p.hasPrevious());
+	}
+	
+	@Test
+	public void badhasNexthasPrev(){
+		CSE12List<String> lst = makeList();	
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+		Paginator<String> p = lst.paginate(2);
+		assertFalse(p.hasPrevious());
+		assertTrue(p.hasNext());
+		p.next();
+		assertTrue(p.hasPrevious());
+		assertTrue(p.hasNext());
+		p.next();
+		assertTrue(p.hasPrevious());
+		assertTrue(p.hasNext());
+		p.next();
+		assertTrue(p.hasPrevious());
+		assertFalse(p.hasNext());
+	}
+	
+	@Test
+	public void DLremoveAll(){
+		CSE12DLList<String> lst = new CSE12DLList<String>();
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+		lst.empty();
+		assertEquals(0, lst.size());
+	}
+	
+	@Test
+	public void findRemoveFail(){
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+		lst.removeFirst("b");
+		assertEquals(4,lst.size());
+		assertEquals("c",lst.getAt(1));
+		lst.removeFirst("d");
+		assertEquals(3,lst.size());
+		assertEquals("e",lst.getAt(2));
+	}
+	
+	@Test
+	public void failExactSizePerPage(){
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+		Paginator<String> p = lst.paginate(5);
+		assertTrue(p.hasNext());
+		Page<String> p1 = p.next();
+		p1.next();
+		p1.next();
+		p1.next();
+		p1.next();
+		p1.next();
+		assertFalse(p1.hasNext());
+		assertFalse(p.hasNext());
+	}
+	
+	@Test
+	public void notFoundFail(){
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+		assertEquals(2,lst.findFirst("c"));
+		assertEquals(-1,lst.findFirst("gg"));
+	}
+	
+	@Test
+	public void exactLast(){
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		Paginator<String> p = lst.paginate(1);
+		Page<String> p1 = p.next();
+		assertTrue(p.hasPrevious());
+		assertFalse(p.hasNext());
+		assertEquals("a", p1.next());
+		assertFalse(p1.hasNext());
+	}
 }

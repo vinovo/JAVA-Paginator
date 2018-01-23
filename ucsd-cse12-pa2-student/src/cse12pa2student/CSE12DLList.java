@@ -58,12 +58,13 @@ public class CSE12DLList<E> implements CSE12List<E> {
 		/** TODO **/
 		DLPaginator<E> p = new DLPaginator<E>(perPage, this.size);
 		for (int i = 0; i < p.pgNums; i++) {
-			CSE12DLList<E> ls = new CSE12DLList<E>();
-			for (int j = i * perPage; j < (i + 1) * perPage; j++) {
+			E[] arr = (E[]) new Object[perPage];
+			int rounds = 0;
+			for (int j = i * perPage; j < (i + 1) * perPage; j++, rounds++) {
 				if (j < this.size)
-					ls.append(this.getAt(j));
+					arr[rounds] = this.getAt(j);
 			}
-			p.list[i].list = ls;
+			p.list[i].list = arr;
 		}
 
 		return p;
@@ -94,5 +95,6 @@ public class CSE12DLList<E> implements CSE12List<E> {
 		}
 		return -1;
 	}
+	
 
 }
