@@ -147,7 +147,6 @@ public class TestLists {
 		CSE12List<String> lst = makeList();
 		Paginator<String> p = lst.paginate(1);
 		
-		lst.getAt(0);
 		assertFalse(p.hasNext());
 		assertFalse(p.hasPrevious());
 	}
