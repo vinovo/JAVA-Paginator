@@ -174,7 +174,7 @@ public class TestLists {
 	}
 	
 	@Test
-	public void DLremoveAll(){
+	public void removeAll(){
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
@@ -254,5 +254,36 @@ public class TestLists {
 		lst.append("a");
 		assertEquals(0,lst.findFirst("a"));
 		assertEquals(-1,lst.findFirst("gg"));
+	}
+	
+	@Test
+	public void empty_findremovefail(){
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+		lst.removeFirst("a");
+		assertEquals(0, lst.size());
+		assertEquals(-1,lst.findFirst("a"));
+	}
+	
+	@Test
+	public void DLListRemoveAll(){
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+		lst.removeFirst("gg");
+		lst.removeFirst("a");
+		lst.removeFirst("b");
+		lst.removeFirst("c");
+		lst.removeFirst("d");
+		lst.removeFirst("e");
+		assertEquals(0,lst.size());
+		assertEquals(-1,lst.findFirst("c"));
 	}
 }
