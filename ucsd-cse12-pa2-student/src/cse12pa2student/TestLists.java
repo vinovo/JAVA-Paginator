@@ -50,6 +50,9 @@ public class TestLists {
 	}
 
 	@Test
+	/**
+	 * test findFisrt method
+	 */
 	public void findFirst() {
 		CSE12List<String> l = makeList();
 		for (int i = 0; i < 26; i++) {
@@ -60,6 +63,9 @@ public class TestLists {
 	}
 
 	@Test
+	/**
+	 * test the removeFirst method
+	 */
 	public void removeFirst() {
 		CSE12List<String> l = makeList();
 		for (int i = 0; i < 26; i++) {
@@ -78,6 +84,9 @@ public class TestLists {
 	}
 
 	@Test
+	/**
+	 * test the size method
+	 */
 	public void testSize() {
 		CSE12List<String> l = makeList();
 		for (int i = 0; i < 26; i++) {
@@ -88,6 +97,9 @@ public class TestLists {
 	}
 
 	@Test
+	/**
+	 * the example test from instruction
+	 */
 	public void testALPaginator() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
@@ -127,13 +139,16 @@ public class TestLists {
 
 		assertTrue(p.hasNext());
 	}
-	
+
 	@Test
-	public void size1HasPrevious(){
+	/**
+	 * test hasPrevious method when the size of list is exactly 1
+	 */
+	public void size1HasPrevious() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		Paginator<String> p = lst.paginate(1);
-		
+
 		assertFalse(p.hasPrevious());
 		Page<String> p1 = p.next();
 		assertTrue(p.hasPrevious());
@@ -141,19 +156,22 @@ public class TestLists {
 		p1.next();
 		assertFalse(p1.hasNext());
 	}
-	
+
 	@Test
-	public void noexns(){
+	public void noexns() {
 		CSE12List<String> lst = makeList();
 		Paginator<String> p = lst.paginate(1);
-		
+
 		assertFalse(p.hasNext());
 		assertFalse(p.hasPrevious());
 	}
-	
+
 	@Test
-	public void badhasNexthasPrev(){
-		CSE12List<String> lst = makeList();	
+	/**
+	 * test hasNext and hasPrevious method
+	 */
+	public void badhasNexthasPrev() {
+		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
 		lst.append("c");
@@ -172,9 +190,12 @@ public class TestLists {
 		assertTrue(p.hasPrevious());
 		assertFalse(p.hasNext());
 	}
-	
+
 	@Test
-	public void removeAll(){
+	/**
+	 * test the case when all elements in the list are removed
+	 */
+	public void removeAll() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
@@ -187,9 +208,12 @@ public class TestLists {
 		assertFalse(p.hasPrevious());
 		assertFalse(p.hasNext());
 	}
-	
+
 	@Test
-	public void findRemoveFail(){
+	/**
+	 * try to find the removed elements
+	 */
+	public void findRemoveFail() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
@@ -197,15 +221,19 @@ public class TestLists {
 		lst.append("d");
 		lst.append("e");
 		lst.removeFirst("b");
-		assertEquals(4,lst.size());
-		assertEquals("c",lst.getAt(1));
+		assertEquals(4, lst.size());
+		assertEquals("c", lst.getAt(1));
 		lst.removeFirst("d");
-		assertEquals(3,lst.size());
-		assertEquals("e",lst.getAt(2));
+		assertEquals(3, lst.size());
+		assertEquals("e", lst.getAt(2));
 	}
-	
+
 	@Test
-	public void failExactSizePerPage(){
+	/**
+	 * test the case when the number of elements per page equals the size of
+	 * list
+	 */
+	public void failExactSizePerPage() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
@@ -223,21 +251,27 @@ public class TestLists {
 		assertFalse(p1.hasNext());
 		assertFalse(p.hasNext());
 	}
-	
+
 	@Test
-	public void notFoundFail(){
+	/**
+	 * try to find a element that is not in the list
+	 */
+	public void notFoundFail() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
 		lst.append("c");
 		lst.append("d");
 		lst.append("e");
-		assertEquals(2,lst.findFirst("c"));
-		assertEquals(-1,lst.findFirst("gg"));
+		assertEquals(2, lst.findFirst("c"));
+		assertEquals(-1, lst.findFirst("gg"));
 	}
-	
+
 	@Test
-	public void exactLast(){
+	/**
+	 * test with the exactly last element in the list
+	 */
+	public void exactLast() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		Paginator<String> p = lst.paginate(1);
@@ -247,17 +281,23 @@ public class TestLists {
 		assertEquals("a", p1.next());
 		assertFalse(p1.hasNext());
 	}
-	
+
 	@Test
-	public void size1_find(){
+	/**
+	 * test findFirst method when the size of lists is exactly 1
+	 */
+	public void size1_find() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
-		assertEquals(0,lst.findFirst("a"));
-		assertEquals(-1,lst.findFirst("gg"));
+		assertEquals(0, lst.findFirst("a"));
+		assertEquals(-1, lst.findFirst("gg"));
 	}
-	
+
 	@Test
-	public void empty_findremovefail(){
+	/**
+	 * try to remove and find elements in an empty list
+	 */
+	public void empty_findremovefail() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
@@ -267,11 +307,14 @@ public class TestLists {
 		lst.empty();
 		lst.removeFirst("a");
 		assertEquals(0, lst.size());
-		assertEquals(-1,lst.findFirst("a"));
+		assertEquals(-1, lst.findFirst("a"));
 	}
-	
+
 	@Test
-	public void DLListRemoveAll(){
+	/**
+	 * remove all the elements one by one in a DLList
+	 */
+	public void DLListRemoveAll() {
 		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
@@ -284,8 +327,8 @@ public class TestLists {
 		lst.removeFirst("c");
 		lst.removeFirst("d");
 		lst.removeFirst("e");
-		assertEquals(0,lst.size());
-		assertEquals(-1,lst.findFirst("c"));
+		assertEquals(0, lst.size());
+		assertEquals(-1, lst.findFirst("c"));
 	}
-	
+
 }
