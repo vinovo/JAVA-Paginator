@@ -175,7 +175,7 @@ public class TestLists {
 	
 	@Test
 	public void DLremoveAll(){
-		CSE12DLList<String> lst = new CSE12DLList<String>();
+		CSE12List<String> lst = makeList();
 		lst.append("a");
 		lst.append("b");
 		lst.append("c");
@@ -183,6 +183,9 @@ public class TestLists {
 		lst.append("e");
 		lst.empty();
 		assertEquals(0, lst.size());
+		Paginator<String> p = lst.paginate(1);
+		assertFalse(p.hasPrevious());
+		assertFalse(p.hasNext());
 	}
 	
 	@Test
@@ -243,5 +246,13 @@ public class TestLists {
 		assertFalse(p.hasNext());
 		assertEquals("a", p1.next());
 		assertFalse(p1.hasNext());
+	}
+	
+	@Test
+	public void size1_find(){
+		CSE12List<String> lst = makeList();
+		lst.append("a");
+		assertEquals(0,lst.findFirst("a"));
+		assertEquals(-1,lst.findFirst("gg"));
 	}
 }
