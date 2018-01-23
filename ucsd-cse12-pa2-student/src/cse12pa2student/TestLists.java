@@ -264,6 +264,7 @@ public class TestLists {
 		lst.append("c");
 		lst.append("d");
 		lst.append("e");
+		lst.empty();
 		lst.removeFirst("a");
 		assertEquals(0, lst.size());
 		assertEquals(-1,lst.findFirst("a"));
