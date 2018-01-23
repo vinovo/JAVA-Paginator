@@ -54,6 +54,11 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	}
 
 	@Override
+	/**
+	 * Create and return a paginator
+	 * @param perPage the numbers of elements each page contains
+	 * @return Paginator<T> the created paginator
+	 */
 	public Paginator<E> paginate(int perPage) {
 		/** TODO **/
 		DLPaginator<E> p = new DLPaginator<E>(perPage, this.size);
@@ -71,6 +76,10 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	}
 
 	@Override
+	/**
+	 * Removes the first element that is .equals(e)
+	 * @param e the element to be removed
+	 */
 	public void removeFirst(E e) {
 		/** TODO **/
 		Node<E> curNode = head.succ;
@@ -87,6 +96,11 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	}
 
 	@Override
+	/**
+	 * Returns the first index where an element of the list is .equals(e)
+	 * @param e the elements to be found
+	 * @return the index of the found elements
+	 */
 	public int findFirst(E e) {
 		/** TODO **/
 		for (int i = 0; i < this.size; i++) {

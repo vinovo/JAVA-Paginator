@@ -6,6 +6,11 @@ public class DLPaginator<E> extends Paginator<E> {
 	DLPage<E>[] list;
 	int cursor, pgNums;
 
+	/**
+	 * the constructor of ALPaginator class
+	 * @param perPage the numbers of elements per page
+	 * @param size the total numbers of elements
+	 */
 	public DLPaginator(int perPage, int size) {
 		cursor = -1;
 		if (size % perPage == 0)
@@ -18,6 +23,10 @@ public class DLPaginator<E> extends Paginator<E> {
 		}
 	}
 
+	/**
+	 * Return true if the iterator can traverse backward
+	 * @return true if the iterator can traverse backward, false otherwise
+	 */
 	public boolean hasPrevious() {
 		if (cursor < -1 || cursor >= pgNums)
 			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
@@ -26,6 +35,10 @@ public class DLPaginator<E> extends Paginator<E> {
 		return false;
 	}
 
+	/**
+	 * return the previous page
+	 * @return the previous page
+	 */
 	public Page<E> previous() {
 		if (cursor < 0 || cursor >= pgNums)
 			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
@@ -38,6 +51,10 @@ public class DLPaginator<E> extends Paginator<E> {
 		}
 	}
 
+	/**
+	 * return the next page
+	 * @return the next page
+	 */
 	public Page<E> next() {
 		if (cursor < -1 || cursor >= pgNums)
 			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
@@ -50,18 +67,30 @@ public class DLPaginator<E> extends Paginator<E> {
 		}
 	}
 
+	/**
+	 * return the index of the next page
+	 * @return the index of the next page
+	 */
 	public int nextIndex() {
 		if (cursor < -1 || cursor >= pgNums)
 			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
 		return cursor + 1;
 	}
 
+	/**
+	 * return the index of the previous page
+	 * @return the index of the previous page
+	 */
 	public int previousIndex() {
 		if (cursor < 0 || cursor >= pgNums)
 			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
 		return cursor;
 	}
 
+	/**
+	 * return true if the iterator can traverse forward
+	 * @return true if the iterator can traverse forward, false otherwise
+	 */
 	public boolean hasNext() {
 		if (cursor < -1 || cursor >= pgNums)
 			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
