@@ -59,6 +59,10 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	}
 
 	@Override
+	/**
+	 * @param perPage the numbers of elements each page contains
+	 * @return Paginator<T> the 
+	 */
 	public Paginator<T> paginate(int perPage) {
 		/** TODO **/
 		ALPaginator<T> p = new ALPaginator<T>(perPage, this.size);
