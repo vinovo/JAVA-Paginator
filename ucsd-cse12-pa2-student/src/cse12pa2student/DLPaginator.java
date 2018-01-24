@@ -47,7 +47,7 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @return the previous page
 	 */
 	public Page<E> previous() {
-		if (cursor < 0 || cursor >= pgNums)
+		if (cursor < 1 || cursor >= pgNums)
 			throw new NoSuchElementException("cursor out of bounds");
 		else {
 			cursor--;
@@ -64,7 +64,7 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @return the next page
 	 */
 	public Page<E> next() {
-		if (cursor < -1 || cursor >= pgNums)
+		if (cursor < -1 || cursor >= pgNums - 1)
 			throw new NoSuchElementException("cursor out of bounds");
 		else {
 			cursor++;

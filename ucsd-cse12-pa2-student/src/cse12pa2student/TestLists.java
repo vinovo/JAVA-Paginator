@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -337,7 +338,7 @@ public class TestLists {
 	/**
 	 * test for NoSuchElementException
 	 */
-	@Test(expected = IndexOutOfBoundsException.class)
+	@Test(expected = NoSuchElementException.class)
 	public void noexns(){
 		CSE12List<String> lst = makeList();
 		lst.append("a");

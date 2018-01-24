@@ -42,7 +42,7 @@ public class ALPaginator<T> extends Paginator<T> {
 	 * @return the previous page
 	 */
 	public Page<T> previous() {
-		if (cursor < 0 || cursor >= pgNums)
+		if (cursor < 1 || cursor >= pgNums)
 			throw new NoSuchElementException("cursor out of bounds");
 		else {
 			cursor--;
@@ -58,7 +58,7 @@ public class ALPaginator<T> extends Paginator<T> {
 	 * @return the next page
 	 */
 	public Page<T> next() {
-		if (cursor < -1 || cursor >= pgNums)
+		if (cursor < -1 || cursor >= pgNums - 1)
 			throw new NoSuchElementException("cursor out of bounds");
 		else {
 			cursor++;
