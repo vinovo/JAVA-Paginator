@@ -63,17 +63,7 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	 */
 	public Paginator<E> paginate(int perPage) {
 		/** TODO **/
-		DLPaginator<E> p = new DLPaginator<E>(perPage, this.size);
-		for (int i = 0; i < p.pgNums; i++) {
-			E[] arr = (E[]) new Object[perPage];
-			int rounds = 0;
-			for (int j = i * perPage; j < (i + 1) * perPage; j++, rounds++) {
-				if (j < this.size)
-					arr[rounds] = this.getAt(j);
-			}
-			p.list[i].list = arr;
-		}
-
+		DLPaginator<E> p = new DLPaginator(this, perPage);
 		return p;
 	}
 

@@ -5,8 +5,8 @@ import java.util.NoSuchElementException;
 public class DLPaginator<E> extends Paginator<E> {
 
 	/** TODO **/
-	DLPage<E>[] list;
-	int cursor, pgNums;
+	CSE12DLList<E> lst;
+	int cursor, pgNums, perPage;
 
 	/**
 	 * the constructor of DLPaginator class
@@ -16,16 +16,15 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @param size
 	 *            the total numbers of elements
 	 */
-	public DLPaginator(int perPage, int size) {
-		cursor = -1;
-		if (size % perPage == 0)
-			pgNums = size / perPage;
+	public DLPaginator(CSE12DLList<E> list, int perPage) {
+		lst = list;
+		this.perPage = perPage;
+		if (lst.size() % this.perPage == 0)
+			pgNums = lst.size() / this.perPage;
 		else
-			pgNums = size / perPage + 1;
-		list = new DLPage[pgNums];
-		for (int i = 0; i < pgNums; i++) {
-			list[i] = new DLPage<E>();
-		}
+			pgNums = lst.size() / this.perPage + 1;
+		int cursor = 0;
+		int curIndex = 0;
 	}
 
 	/**
@@ -34,9 +33,7 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @return true if the iterator can traverse backward, false otherwise
 	 */
 	public boolean hasPrevious() {
-		if (cursor < -1 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		if (cursor >= 0 && list[cursor] != null)
+		if (cursor >= 1 && cursor <= pgNums)
 			return true;
 		return false;
 	}
@@ -47,14 +44,16 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @return the previous page
 	 */
 	public Page<E> previous() {
-		if (cursor < 1 || cursor >= pgNums)
+		if (!hasPrevious())
 			throw new NoSuchElementException("cursor out of bounds");
 		else {
 			cursor--;
-			DLPage<E> page = new DLPage<E>();
-			page.list = list[cursor + 1].list;
-			list[cursor + 1] = page;
-			return list[cursor + 1];
+			int startIndex = cursor * perPage;
+			int endIndex = (cursor + 1) * perPage - 1;
+			if (endIndex >= lst.size())
+				endIndex = lst.size() - 1;	
+			DLPage<E> pg = new DLPage<E>(startIndex, endIndex, lst);
+			return pg;
 		}
 	}
 
@@ -64,14 +63,16 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @return the next page
 	 */
 	public Page<E> next() {
-		if (cursor < -1 || cursor >= pgNums - 1)
+		if (!hasNext())
 			throw new NoSuchElementException("cursor out of bounds");
 		else {
+			int startIndex = cursor * perPage;
+			int endIndex = (cursor + 1) * perPage - 1;
+			if (endIndex >= lst.size())
+				endIndex = lst.size() - 1;	
+			DLPage<E> pg = new DLPage<E>(startIndex, endIndex, lst);
 			cursor++;
-			DLPage<E> page = new DLPage<E>();
-			page.list = list[cursor].list;
-			list[cursor] = page;
-			return list[cursor];
+			return pg;
 		}
 	}
 
@@ -81,9 +82,9 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @return the index of the next page
 	 */
 	public int nextIndex() {
-		if (cursor < -1 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		return cursor + 1;
+		if (cursor >= pgNums)
+			throw new NoSuchElementException("cursor out of bounds");
+		return cursor;
 	}
 
 	/**
@@ -92,9 +93,9 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @return the index of the previous page
 	 */
 	public int previousIndex() {
-		if (cursor < 0 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		return cursor;
+		if (cursor < 1)
+			throw new NoSuchElementException("cursor out of bounds");
+		return cursor - 1;
 	}
 
 	/**
@@ -103,9 +104,7 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @return true if the iterator can traverse forward, false otherwise
 	 */
 	public boolean hasNext() {
-		if (cursor < -1 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		if (cursor < pgNums - 1 && list[cursor + 1] != null)
+		if (cursor >= 0 && cursor < pgNums)
 			return true;
 		return false;
 	}

@@ -1,16 +1,21 @@
 package cse12pa2student;
 
+import java.util.NoSuchElementException;
+
 public class DLPage<T> implements Page<T> {
 
 	/** TODO **/
-	T[] list;
-	int cursor;
+	CSE12DLList<T> lst;
+	int cursor,start,end;
 
 	/**
 	 * the constructor of ALPage
 	 */
-	public DLPage() {
-		cursor = -1;
+	public DLPage(int startIndex, int endIndex, CSE12DLList<T> list) {
+		lst = list;
+		cursor = startIndex;
+		start = startIndex;
+		end = endIndex;
 	}
 
 	/**
@@ -19,10 +24,11 @@ public class DLPage<T> implements Page<T> {
 	 * @return the next element of current page
 	 */
 	public T next() {
-		if (cursor < -1 || cursor + 1 >= list.length)
-			throw new IndexOutOfBoundsException("cursor out of bounds");
+		if (!hasNext())
+			throw new NoSuchElementException("cursor out of bounds");
+		T t = lst.getAt(cursor);
 		cursor++;
-		return list[cursor];
+		return t;
 	}
 
 	/**
@@ -30,9 +36,7 @@ public class DLPage<T> implements Page<T> {
 	 *         false otherwise
 	 */
 	public boolean hasNext() {
-		if (cursor < -1 || cursor > list.length)
-			throw new IndexOutOfBoundsException("cursor out of bounds");
-		if (cursor + 1 < list.length && list[cursor + 1] != null)
+		if (cursor <= end)
 			return true;
 		return false;
 	}

@@ -5,24 +5,23 @@ import java.util.NoSuchElementException;
 public class ALPaginator<T> extends Paginator<T> {
 
 	/** TODO **/
-	ALPage<T>[] list;
-	int cursor, pgNums;
+	CSE12ArrayList<T> lst;
+	int cursor, pgNums, perPage;
 
 	/**
 	 * the constructor of ALPaginator class
 	 * @param perPage the numbers of elements per page
 	 * @param size the total numbers of elements
 	 */
-	public ALPaginator(int perPage, int size) {
-		cursor = -1;
-		if (size % perPage == 0)
-			pgNums = size / perPage;
+	public ALPaginator(CSE12ArrayList<T> list, int perPage) {
+		lst = list;
+		this.perPage = perPage;
+		if (lst.size() % this.perPage == 0)
+			pgNums = lst.size() / this.perPage;
 		else
-			pgNums = size / perPage + 1;
-		list = new ALPage[pgNums];
-		for (int i = 0; i < pgNums; i++) {
-			list[i] = new ALPage<T>();
-		}
+			pgNums = lst.size() / this.perPage + 1;
+		int cursor = 0;
+		int curIndex = 0;
 	}
 
 	/**
@@ -30,9 +29,7 @@ public class ALPaginator<T> extends Paginator<T> {
 	 * @return true if the iterator can traverse backward, false otherwise
 	 */
 	public boolean hasPrevious() {
-		if (cursor < -1 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		if (cursor >= 0 && list[cursor] != null)
+		if (cursor >= 1 && cursor <= pgNums)
 			return true;
 		return false;
 	}
@@ -42,14 +39,16 @@ public class ALPaginator<T> extends Paginator<T> {
 	 * @return the previous page
 	 */
 	public Page<T> previous() {
-		if (cursor < 1 || cursor >= pgNums)
+		if (!hasPrevious())
 			throw new NoSuchElementException("cursor out of bounds");
 		else {
 			cursor--;
-			ALPage<T> page = new ALPage<T>();
-			page.list = list[cursor + 1].list;
-			list[cursor + 1] = page;
-			return list[cursor + 1];
+			int startIndex = cursor * perPage;
+			int endIndex = (cursor + 1) * perPage - 1;
+			if (endIndex >= lst.size())
+				endIndex = lst.size() - 1;	
+			ALPage<T> pg = new ALPage<T>(startIndex, endIndex, lst);
+			return pg;
 		}
 	}
 
@@ -58,14 +57,16 @@ public class ALPaginator<T> extends Paginator<T> {
 	 * @return the next page
 	 */
 	public Page<T> next() {
-		if (cursor < -1 || cursor >= pgNums - 1)
+		if (!hasNext())
 			throw new NoSuchElementException("cursor out of bounds");
 		else {
+			int startIndex = cursor * perPage;
+			int endIndex = (cursor + 1) * perPage - 1;
+			if (endIndex >= lst.size())
+				endIndex = lst.size() - 1;	
+			ALPage<T> pg = new ALPage<T>(startIndex, endIndex, lst);
 			cursor++;
-			ALPage<T> page = new ALPage<T>();
-			page.list = list[cursor].list;
-			list[cursor] = page;
-			return list[cursor];
+			return pg;
 		}
 	}
 
@@ -74,9 +75,9 @@ public class ALPaginator<T> extends Paginator<T> {
 	 * @return the index of the next page
 	 */
 	public int nextIndex() {
-		if (cursor < -1 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		return cursor + 1;
+		if (cursor >= pgNums)
+			throw new NoSuchElementException("cursor out of bounds");
+		return cursor;
 	}
 
 	/**
@@ -84,9 +85,9 @@ public class ALPaginator<T> extends Paginator<T> {
 	 * @return the index of the previous page
 	 */
 	public int previousIndex() {
-		if (cursor < 0 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		return cursor;
+		if (cursor < 1)
+			throw new NoSuchElementException("cursor out of bounds");
+		return cursor - 1;
 	}
 
 	/**
@@ -94,11 +95,8 @@ public class ALPaginator<T> extends Paginator<T> {
 	 * @return true if the iterator can traverse forward, false otherwise
 	 */
 	public boolean hasNext() {
-		if (cursor < -1 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
-		if (cursor < pgNums - 1 && list[cursor + 1] != null)
+		if (cursor >= 0 && cursor < pgNums)
 			return true;
 		return false;
 	}
-
 }
