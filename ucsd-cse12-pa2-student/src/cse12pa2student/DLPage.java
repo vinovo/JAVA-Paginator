@@ -5,14 +5,14 @@ import java.util.NoSuchElementException;
 public class DLPage<T> implements Page<T> {
 
 	/** TODO **/
-	CSE12DLList<T> lst;
-	int cursor,start,end;
+	Node<T> node;
+	int cursor, start, end;
 
 	/**
 	 * the constructor of ALPage
 	 */
-	public DLPage(int startIndex, int endIndex, CSE12DLList<T> list) {
-		lst = list;
+	public DLPage(int startIndex, int endIndex, Node<T> node) {
+		this.node = node;
 		cursor = startIndex;
 		start = startIndex;
 		end = endIndex;
@@ -26,9 +26,9 @@ public class DLPage<T> implements Page<T> {
 	public T next() {
 		if (!hasNext())
 			throw new NoSuchElementException("cursor out of bounds");
-		T t = lst.getAt(cursor);
+		node = node.succ;
 		cursor++;
-		return t;
+		return node.value;
 	}
 
 	/**

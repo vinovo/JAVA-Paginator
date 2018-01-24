@@ -68,7 +68,7 @@ public class CSE12ArrayList<T> implements CSE12List<T> {
 	 */
 	public Paginator<T> paginate(int perPage) {
 		/** TODO **/
-		ALPaginator<T> p = new ALPaginator(this, perPage);
+		ALPaginator<T> p = new ALPaginator(this.contents, perPage, this.size);
 		return p;
 	}
 

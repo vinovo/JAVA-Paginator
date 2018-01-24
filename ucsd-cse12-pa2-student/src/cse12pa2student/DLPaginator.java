@@ -5,8 +5,8 @@ import java.util.NoSuchElementException;
 public class DLPaginator<E> extends Paginator<E> {
 
 	/** TODO **/
-	CSE12DLList<E> lst;
-	int cursor, pgNums, perPage;
+	Node<E> node;
+	int cursor, pgNums, perPage, size;
 
 	/**
 	 * the constructor of DLPaginator class
@@ -16,15 +16,15 @@ public class DLPaginator<E> extends Paginator<E> {
 	 * @param size
 	 *            the total numbers of elements
 	 */
-	public DLPaginator(CSE12DLList<E> list, int perPage) {
-		lst = list;
+	public DLPaginator(int size, int perPage, Node<E> head) {
+		this.size = size;
 		this.perPage = perPage;
-		if (lst.size() % this.perPage == 0)
-			pgNums = lst.size() / this.perPage;
+		if (this.size % this.perPage == 0)
+			pgNums = this.size / this.perPage;
 		else
-			pgNums = lst.size() / this.perPage + 1;
-		int cursor = 0;
-		int curIndex = 0;
+			pgNums = this.size / this.perPage + 1;
+		cursor = 0;
+		node = head;
 	}
 
 	/**
@@ -50,9 +50,15 @@ public class DLPaginator<E> extends Paginator<E> {
 			cursor--;
 			int startIndex = cursor * perPage;
 			int endIndex = (cursor + 1) * perPage - 1;
-			if (endIndex >= lst.size())
-				endIndex = lst.size() - 1;	
-			DLPage<E> pg = new DLPage<E>(startIndex, endIndex, lst);
+			if (endIndex >= size)
+				endIndex = size - 1;
+			for (int i = 0; i < startIndex; i++){
+				node = node.succ;
+			}
+			DLPage<E> pg = new DLPage<E>(startIndex, endIndex, node);
+			while (node.prev != null){
+				node = node.prev;
+			}
 			return pg;
 		}
 	}
@@ -68,10 +74,16 @@ public class DLPaginator<E> extends Paginator<E> {
 		else {
 			int startIndex = cursor * perPage;
 			int endIndex = (cursor + 1) * perPage - 1;
-			if (endIndex >= lst.size())
-				endIndex = lst.size() - 1;	
-			DLPage<E> pg = new DLPage<E>(startIndex, endIndex, lst);
+			if (endIndex >= size)
+				endIndex = size - 1;
+			for (int i = 0; i < startIndex; i++){
+				node = node.succ;
+			}
+			DLPage<E> pg = new DLPage<E>(startIndex, endIndex, node);
 			cursor++;
+			while (node.prev != null){
+				node = node.prev;
+			}
 			return pg;
 		}
 	}

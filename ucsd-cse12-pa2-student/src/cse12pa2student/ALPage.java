@@ -5,14 +5,14 @@ import java.util.NoSuchElementException;
 public class ALPage<E> implements Page<E> {
 
 	/** TODO **/
-	CSE12ArrayList<E> lst;
-	int cursor,start,end;
+	E[] arr;
+	int cursor, start, end;
 
 	/**
 	 * the constructor of ALPage
 	 */
-	public ALPage(int startIndex, int endIndex, CSE12ArrayList<E> list) {
-		lst = list;
+	public ALPage(int startIndex, int endIndex, E[] arr) {
+		this.arr = arr;
 		cursor = startIndex;
 		start = startIndex;
 		end = endIndex;
@@ -20,12 +20,13 @@ public class ALPage<E> implements Page<E> {
 
 	/**
 	 * return the next element of current page
+	 * 
 	 * @return the next element of current page
 	 */
 	public E next() {
 		if (!hasNext())
 			throw new NoSuchElementException("cursor out of bounds");
-		E t = lst.getAt(cursor);
+		E t = arr[cursor];
 		cursor++;
 		return t;
 	}

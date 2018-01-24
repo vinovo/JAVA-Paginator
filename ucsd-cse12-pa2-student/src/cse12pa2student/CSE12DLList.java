@@ -63,7 +63,7 @@ public class CSE12DLList<E> implements CSE12List<E> {
 	 */
 	public Paginator<E> paginate(int perPage) {
 		/** TODO **/
-		DLPaginator<E> p = new DLPaginator(this, perPage);
+		DLPaginator<E> p = new DLPaginator(size, perPage, head);
 		return p;
 	}
 

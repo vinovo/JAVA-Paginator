@@ -5,27 +5,31 @@ import java.util.NoSuchElementException;
 public class ALPaginator<T> extends Paginator<T> {
 
 	/** TODO **/
-	CSE12ArrayList<T> lst;
-	int cursor, pgNums, perPage;
+	T[] arr;
+	int cursor, pgNums, perPage, size;
 
 	/**
 	 * the constructor of ALPaginator class
-	 * @param perPage the numbers of elements per page
-	 * @param size the total numbers of elements
+	 * 
+	 * @param perPage
+	 *            the numbers of elements per page
+	 * @param size
+	 *            the total numbers of elements
 	 */
-	public ALPaginator(CSE12ArrayList<T> list, int perPage) {
-		lst = list;
+	public ALPaginator(T[] arr, int perPage, int size) {
+		this.arr = arr;
+		this.size = size;
 		this.perPage = perPage;
-		if (lst.size() % this.perPage == 0)
-			pgNums = lst.size() / this.perPage;
+		if (this.size % this.perPage == 0)
+			pgNums = this.size / this.perPage;
 		else
-			pgNums = lst.size() / this.perPage + 1;
-		int cursor = 0;
-		int curIndex = 0;
+			pgNums = this.size / this.perPage + 1;
+		cursor = 0;
 	}
 
 	/**
 	 * Return true if the iterator can traverse backward
+	 * 
 	 * @return true if the iterator can traverse backward, false otherwise
 	 */
 	public boolean hasPrevious() {
@@ -36,6 +40,7 @@ public class ALPaginator<T> extends Paginator<T> {
 
 	/**
 	 * return the previous page
+	 * 
 	 * @return the previous page
 	 */
 	public Page<T> previous() {
@@ -45,15 +50,16 @@ public class ALPaginator<T> extends Paginator<T> {
 			cursor--;
 			int startIndex = cursor * perPage;
 			int endIndex = (cursor + 1) * perPage - 1;
-			if (endIndex >= lst.size())
-				endIndex = lst.size() - 1;	
-			ALPage<T> pg = new ALPage<T>(startIndex, endIndex, lst);
+			if (endIndex >= size)
+				endIndex = size - 1;
+			ALPage<T> pg = new ALPage<T>(startIndex, endIndex, arr);
 			return pg;
 		}
 	}
 
 	/**
 	 * return the next page
+	 * 
 	 * @return the next page
 	 */
 	public Page<T> next() {
@@ -62,9 +68,9 @@ public class ALPaginator<T> extends Paginator<T> {
 		else {
 			int startIndex = cursor * perPage;
 			int endIndex = (cursor + 1) * perPage - 1;
-			if (endIndex >= lst.size())
-				endIndex = lst.size() - 1;	
-			ALPage<T> pg = new ALPage<T>(startIndex, endIndex, lst);
+			if (endIndex >= size)
+				endIndex = size - 1;
+			ALPage<T> pg = new ALPage<T>(startIndex, endIndex, arr);
 			cursor++;
 			return pg;
 		}
@@ -72,6 +78,7 @@ public class ALPaginator<T> extends Paginator<T> {
 
 	/**
 	 * return the index of the next page
+	 * 
 	 * @return the index of the next page
 	 */
 	public int nextIndex() {
@@ -82,6 +89,7 @@ public class ALPaginator<T> extends Paginator<T> {
 
 	/**
 	 * return the index of the previous page
+	 * 
 	 * @return the index of the previous page
 	 */
 	public int previousIndex() {
@@ -92,6 +100,7 @@ public class ALPaginator<T> extends Paginator<T> {
 
 	/**
 	 * return true if the iterator can traverse forward
+	 * 
 	 * @return true if the iterator can traverse forward, false otherwise
 	 */
 	public boolean hasNext() {
