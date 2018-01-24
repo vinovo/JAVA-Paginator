@@ -1,5 +1,7 @@
 package cse12pa2student;
 
+import java.util.NoSuchElementException;
+
 public class ALPaginator<T> extends Paginator<T> {
 
 	/** TODO **/
@@ -41,7 +43,7 @@ public class ALPaginator<T> extends Paginator<T> {
 	 */
 	public Page<T> previous() {
 		if (cursor < 0 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
+			throw new NoSuchElementException("cursor out of bounds");
 		else {
 			cursor--;
 			ALPage<T> page = new ALPage<T>();
@@ -57,7 +59,7 @@ public class ALPaginator<T> extends Paginator<T> {
 	 */
 	public Page<T> next() {
 		if (cursor < -1 || cursor >= pgNums)
-			throw new ArrayIndexOutOfBoundsException("cursor out of bounds");
+			throw new NoSuchElementException("cursor out of bounds");
 		else {
 			cursor++;
 			ALPage<T> page = new ALPage<T>();

@@ -157,8 +157,11 @@ public class TestLists {
 		assertFalse(p1.hasNext());
 	}
 
+	/**
+	 * test for hasNext and hasPrevious in empty lists.
+	 */
 	@Test
-	public void noexns() {
+	public void emptyList() {
 		CSE12List<String> lst = makeList();
 		Paginator<String> p = lst.paginate(1);
 
@@ -329,6 +332,16 @@ public class TestLists {
 		lst.removeFirst("e");
 		assertEquals(0, lst.size());
 		assertEquals(-1, lst.findFirst("c"));
+	}
+	
+	/**
+	 * test for NoSuchElementException
+	 */
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void noexns(){
+		CSE12List<String> lst = makeList();
+		Paginator<String> p = lst.paginate(1);
+		p.next();
 	}
 
 }
