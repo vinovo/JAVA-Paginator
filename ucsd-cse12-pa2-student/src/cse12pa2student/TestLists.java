@@ -340,8 +340,16 @@ public class TestLists {
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void noexns(){
 		CSE12List<String> lst = makeList();
-		Paginator<String> p = lst.paginate(1);
+		lst.append("a");
+		lst.append("b");
+		lst.append("c");
+		lst.append("d");
+		lst.append("e");
+		Paginator<String> p = lst.paginate(2);
 		p.next();
+		p.next();
+		p.next();
+		Page<String> p4 = p.next();
 	}
 
 }
